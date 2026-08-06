@@ -27,3 +27,40 @@ model User {
 
   @@index([email])
 }
+
+// Note model - represents a single note created by a user
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text          // Use Text type for large content
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Foreign key relationship to User
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  // Relationship to SharedAccess (this note can be shared with multiple users)
+  sharedWith SharedAccess[]
+
+  // Index for faster queries by ownerId
+  @@index([ownerId])
+}
+
+// SharedAccess model - represents permissions for a note
+model SharedAccess {
+  id        String   @id @default(cuid())
+  noteId    String
+  userId    String
+  permission String  // "VIEW" or "EDIT"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Foreign key relationships
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Composite unique constraint: can't share same note twice with same user
+  @@unique([noteId, userId])
+  @@index([userId])
+}
