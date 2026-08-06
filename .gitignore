@@ -47,3 +47,4 @@ next-env.d.ts
 dist/
 .DS_Store
 *.log
+.env
