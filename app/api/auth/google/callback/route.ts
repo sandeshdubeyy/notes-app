@@ -80,16 +80,16 @@ export async function GET(request: NextRequest) {
 
         //generate jwt and store sessions
         const token = signToken(user.id);
-        // await redis.setEx(
-        //     `session${user.id}`,
-        //     60 * 60 * 24 * 7,
-        //     JSON.stringify(
-        //         {
-        //             userId: user.id,
-        //             email: user.email,
-        //         },
-        //     ),
-        // );
+        await redis.setEx(
+            `session${user.id}`,
+            60 * 60 * 24 * 7,
+            JSON.stringify(
+                {
+                    userId: user.id,
+                    email: user.email,
+                },
+            ),
+        );
 
         // jwt as httpOnly cookieand redirect the user to dashbaord after authorization
         const response = NextResponse.redirect(`${process.env.NEXTAUTH_URL}/`);

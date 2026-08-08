@@ -2,20 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { redis } from "@/lib/redis";
 import { verifyToken } from "@/lib/jwt";
 
-export async function POST(request:NextRequest) {
-    const token = request.cookies.get("token")?.value;
+import { extractUserIdFromRequest } from "@/lib/auth";
 
-    if(token){
-        const payload = verifyToken(token);
-        if(payload){
-            await redis.del(`session${payload.userId}`);
-        };
-    };
+export async function POST(request: NextRequest) {
+    const userId = extractUserIdFromRequest(request);
+
+    if (userId) {
+        await redis.del(`session:${userId}`);
+    }
+
 
     const response = NextResponse.json({
-        message:"Logged out"
+        message: "Logged out"
     });
-    
+
     response.cookies.delete("token");
     return response;
 }
