@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
 
-
-console.log("GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
-console.log("GOOGLE_CLIENT_SECRET:", process.env.GOOGLE_CLIENT_SECRET);
-console.log("All env keys:", Object.keys(process.env).filter(k => k.includes("GOOGLE")));
-
 export async function GET() {
     const params = new URLSearchParams({
         client_id: process.env.GOOGLE_CLIENT_ID!,
