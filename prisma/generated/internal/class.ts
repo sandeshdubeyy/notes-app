@@ -22,6 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
+      // "value": "C:\\Users\\SANDESH\\Documents\\Web Development\\Projects\\Full Stack Project\\notes-app\\prisma\\generated"
       "value": "C:\\Collaborative-Project\\notes-app\\prisma\\generated",
       "fromEnvVar": null
     },
@@ -36,6 +37,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
+    // "value": "C:\\Users\\SANDESH\\Documents\\Web Development\\Projects\\Full Stack Project\\notes-app\\prisma\\generated"
     "sourceFilePath": "C:\\Collaborative-Project\\notes-app\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
